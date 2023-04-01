@@ -1,92 +1,178 @@
 
-
-
-
-
-
-
-import React, { useState } from 'react';
-import '../styles/App.css';
-import { signUpFormValidation } from '../utils/validation';
+import React, { useState } from "react";
+import { signUpFormValidation } from "../utils/validation";
+import "../styles/App.css";
 
 const App = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    consent: false
+    name: "",
+    email: "",
+    password: "",
+    consent: false,
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({
+    name: null,
+    email: null,
+    password: null,
+    consent: null,
+  });
 
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    const inputValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [name]: inputValue });
+  const onInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+    });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const onFormSubmit = (e) => {
+    e.preventDefault();
     const errors = signUpFormValidation(formData);
-    setFormErrors(errors || {});
+    setFormErrors(errors);
   };
 
   return (
     <div id="main">
-      <h2>Sign up form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
+      <form onSubmit={onFormSubmit}>
+        <div>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleInputChange}
+            onChange={onInputChange}
           />
-          {formErrors.name && <span className="error">{formErrors.name}</span>}
+          {formErrors.name && <p>{formErrors.name}</p>}
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <div>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             name="email"
             value={formData.email}
-            onChange={handleInputChange}
+            onChange={onInputChange}
           />
-          {formErrors.email && <span className="error">{formErrors.email}</span>}
+          {formErrors.email && <p>{formErrors.email}</p>}
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <div>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
             value={formData.password}
-            onChange={handleInputChange}
+            onChange={onInputChange}
           />
-          {formErrors.password && <span className="error">{formErrors.password}</span>}
+          {formErrors.password && <p>{formErrors.password}</p>}
         </div>
-        <div className="form-group">
-          <label htmlFor="consent">
-            <input
-              type="checkbox"
-              id="consent"
-              name="consent"
-              checked={formData.consent}
-              onChange={handleInputChange}
-            />
-            I agree to the terms and conditions
-          </label>
-          {formErrors.consent && <span className="error">{formErrors.consent}</span>}
+        <div>
+          <input
+            type="checkbox"
+            id="consent"
+            name="consent"
+            checked={formData.consent}
+            onChange={onInputChange}
+          />
+          <label htmlFor="consent">I agree to the terms and conditions</label>
+          {formErrors.consent && <p>{formErrors.consent}</p>}
         </div>
-        <button type="submit">Sign up</button>
+        <button type="submit">Signup</button>
       </form>
     </div>
   );
 };
 
 export default App;
+
+
+
+
+
+
+// import React, { useState } from 'react';
+// import '../styles/App.css';
+// import { signUpFormValidation } from '../utils/validation';
+
+// const App = () => {
+//   const [formData, setFormData] = useState({
+//     name: '',
+//     email: '',
+//     password: '',
+//     consent: false
+//   });
+//   const [formErrors, setFormErrors] = useState({});
+
+//   const handleInputChange = (event) => {
+//     const { name, value, type, checked } = event.target;
+//     const inputValue = type === 'checkbox' ? checked : value;
+//     setFormData({ ...formData, [name]: inputValue });
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const errors = signUpFormValidation(formData);
+//     setFormErrors(errors || {});
+//   };
+
+//   return (
+//     <div id="main">
+//       <h2>Sign up form</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div className="form-group">
+//           <label htmlFor="name">Name:</label>
+//           <input
+//             type="text"
+//             id="name"
+//             name="name"
+//             value={formData.name}
+//             onChange={handleInputChange}
+//           />
+//           {formErrors.name && <span className="error">{formErrors.name}</span>}
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="email">Email:</label>
+//           <input
+//             type="email"
+//             id="email"
+//             name="email"
+//             value={formData.email}
+//             onChange={handleInputChange}
+//           />
+//           {formErrors.email && <span className="error">{formErrors.email}</span>}
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="password">Password:</label>
+//           <input
+//             type="password"
+//             id="password"
+//             name="password"
+//             value={formData.password}
+//             onChange={handleInputChange}
+//           />
+//           {formErrors.password && <span className="error">{formErrors.password}</span>}
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="consent">
+//             <input
+//               type="checkbox"
+//               id="consent"
+//               name="consent"
+//               checked={formData.consent}
+//               onChange={handleInputChange}
+//             />
+//             I agree to the terms and conditions
+//           </label>
+//           {formErrors.consent && <span className="error">{formErrors.consent}</span>}
+//         </div>
+//         <button type="submit">Sign up</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default App;
 
 
 
